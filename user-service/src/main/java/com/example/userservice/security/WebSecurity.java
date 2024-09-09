@@ -73,7 +73,8 @@ public class WebSecurity {
     http.addFilterBefore(getAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
 
     http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
-    
+
+
     return http.build();
   }
 
