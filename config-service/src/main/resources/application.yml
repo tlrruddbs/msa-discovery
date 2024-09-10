@@ -1,0 +1,16 @@
+server: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        bootstrap: true
+        git:
+         url: file:///C:/Users/tlrru/IdeaProjects/msa-discovery
+
+
+
+
+
