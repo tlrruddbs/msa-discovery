@@ -3,12 +3,12 @@ server:
 
 
 spring:
-#  cloud:
-#    config:
-#      name: ecommerce
-#      uri: http://127.0.0.1:8888  # Config Server의 URI
-#  config:
-#    import: "configserver:"  # Config Server에서 설정을 가져옴
+  cloud:
+    config:
+      name: ecommerce
+      uri: http://127.0.0.1:8888  # Config Server의 URI
+  config:
+    import: "configserver:"  # Config Server에서 설정을 가져옴
   application:
     name: user-service
   h2:
