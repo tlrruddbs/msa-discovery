@@ -1,7 +1,14 @@
 server:
   port: 0
 
+
 spring:
+#  cloud:
+#    config:
+#      name: ecommerce
+#      uri: http://127.0.0.1:8888  # Config Server의 URI
+#  config:
+#    import: "configserver:"  # Config Server에서 설정을 가져옴
   application:
     name: user-service
   h2:
@@ -31,6 +38,8 @@ eureka:
       defaultZone: http://127.0.0.1:8761/eureka
 greeting:
   message: Welcome to the simple e-commerce.
-token:
-  expiration_time: 86400000
-  secret: youre64rbytewsecretakeydthatdsdlongdenoughdfordhs51211111111111ddyoure64rbytewsecretakeydthatdsdlongdenoughdfordhs5121111111111
+
+
+#token:
+#  expiration_time: 86400000
+#  secret: youre64rbytewsecretakeydthatdsdlongdenoughdfordhs51211111111111ddyoure64rbytewsecretakeydthatdsdlongdenoughdfordhs5121111111111
