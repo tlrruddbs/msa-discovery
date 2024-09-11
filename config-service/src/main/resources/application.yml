@@ -1,6 +1,11 @@
 spring:
   application:
     name: config-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   cloud:
     config:
       server:
@@ -8,7 +13,13 @@ spring:
         native:
           search-locations: file:///C:/Users/tlrru/IdeaProjects/msa-discovery
         git: #default
-          uri: https://github.com/tlrruddbs/msa-discovery
+          uri: https://github.com/tlrruddbs/spring-cloud-config
           default-label: main
 server:
   port: 8888
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace, busrefresh
+
