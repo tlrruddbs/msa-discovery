@@ -8,6 +8,8 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 
 spring:
+  profiles:
+    active: prod
   config:
     import: "configserver:"  # Config Server에서 설정을 가져옴
   application:
@@ -78,4 +80,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httptrace
+        include: refresh, health, beans, httptrace, busrefresh
