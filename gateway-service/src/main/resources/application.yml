@@ -8,9 +8,14 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 
 spring:
+  config:
+    import: "configserver:"  # Config Server에서 설정을 가져옴
   application:
     name: gateway-service
   cloud:
+    config:
+      name: ecommerce
+      uri: http://127.0.0.1:8888  # Config Server의 URI
     gateway:
       routes:
 #        - id: user-service
@@ -67,5 +72,10 @@ spring:
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/order-service/**
-token:
-  secret: youre64rbytewsecretakeydthatdsdlongdenoughdfordhs51211111111111ddyoure64rbytewsecretakeydthatdsdlongdenoughdfordhs5121111111111
+#token:
+#  secret: youre64rbytewsecretakeydthatdsdlongdenoughdfordhs51211111111111ddyoure64rbytewsecretakeydthatdsdlongdenoughdfordhs5121111111111
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace

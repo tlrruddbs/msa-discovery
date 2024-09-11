@@ -54,7 +54,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'  // 선택 사항, 헬스체크용
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.boot:spring-boot-starter-actuator:3.3.2'
 
