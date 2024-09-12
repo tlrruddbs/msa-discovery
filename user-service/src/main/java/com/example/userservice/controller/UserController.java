@@ -36,8 +36,14 @@ public class UserController {
             + ", server port: "+ env.getProperty("server.port")
             + ", token secret: "+ env.getProperty("token.secret")
             + ", token expire: "+ env.getProperty("token.expiration_time")
+            + ", token expire: "+ env.getProperty("spring.datasource.username")
          ;
     }
+//    spring:
+//  datasource:
+//    driver-class-name: org.h2.Driver
+//    url: jdbc:h2:mem:testdb
+//    username: sa
     @GetMapping("/welcome")
     public String welcome(HttpServletRequest request){
         log.info("Server port={} ",request.getServerPort());

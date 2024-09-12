@@ -4,26 +4,26 @@ server:
 
 spring:
   profiles:
-    active: dev  # 'dev' 프로파일을 명시적으로 활성화
+    active: default  # 'dev' 프로파일을 명시적으로 활성화
   cloud:
     config:
-      name: ecommerce
       uri: http://127.0.0.1:8888  # Config Server의 URI
+      name: user-service
   config:
-    import: "configserver:"  # Config Server에서 설정을 가져옴
+    import: "optional:configserver:"  # Config Server에서 설정을 가져옴
   application:
     name: user-service
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
-      path: /h2-console
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
+#      path: /h2-console
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password:
   jpa:
     hibernate:
       ddl-auto: update
@@ -47,5 +47,5 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, busrefresh
+        include: refresh, health, beans, busrefresh, env
 #  secret: youre64rbytewsecretakeydthatdsdlongdenoughdfordhs51211111111111ddyoure64rbytewsecretakeydthatdsdlongdenoughdfordhs5121111111111

@@ -9,7 +9,7 @@ eureka:
 
 spring:
   profiles:
-    active: prod
+    active: default
   config:
     import: "configserver:"  # Config Server에서 설정을 가져옴
   application:
@@ -51,6 +51,14 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
+            - Path=/user-service/h2-console
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie  #post로 요청되는 것들은 항상 새로운 값
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
             - Path=/user-service/**
             - Method=GET
           filters:
@@ -80,4 +88,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httptrace, busrefresh
+        include: refresh, health, beans, httptrace, busrefresh, env
