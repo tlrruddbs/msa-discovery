@@ -1,5 +1,6 @@
 package com.example.userservice.service;
 
+import com.example.userservice.client.OrderServiceClient;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.jpa.UserEntity;
 import com.example.userservice.jpa.UserRepository;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MatchingStrategy;
@@ -21,12 +23,15 @@ import java.util.UUID;
 import org.springframework.util.ObjectUtils;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
     private final BCryptPasswordEncoder passwordEncoder;
+
+    private final OrderServiceClient orderServiceClient;
 
     @Override
     public UserDto createUser(final UserDto userDto) {
@@ -48,13 +53,17 @@ public class UserServiceImpl implements UserService{
 
 
         if(ObjectUtils.isEmpty(userEntity)){
+            log.error("user not found");
             throw new UsernameNotFoundException("user not found");
         }
 
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
-        List<ResponseOrder> orders = new ArrayList<>();
-        userDto.setOrders(orders);
+        /* using a feign client */
+        List<ResponseOrder> ordersList = orderServiceClient.getOrders(userId);
+
+//        List<ResponseOrder> orders = new ArrayList<>();
+        userDto.setOrders(ordersList);
 
         return userDto;
     }

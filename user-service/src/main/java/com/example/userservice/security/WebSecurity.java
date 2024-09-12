@@ -51,8 +51,8 @@ public class WebSecurity {
     http.authorizeHttpRequests((authz) -> authz
             .requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
             .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
-            .requestMatchers(new AntPathRequestMatcher("/users", "POST")).permitAll()
-            .requestMatchers(new AntPathRequestMatcher("/users", "GET")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/users/**", "POST")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/users/**", "GET")).permitAll()
             .requestMatchers(new AntPathRequestMatcher("/login", "POST")).permitAll()
             .requestMatchers(new AntPathRequestMatcher("/welcome", "GET")).permitAll()
             .requestMatchers(new AntPathRequestMatcher("/health_check")).permitAll()
@@ -60,7 +60,7 @@ public class WebSecurity {
             .requestMatchers(new AntPathRequestMatcher("/swagger-resources/**")).permitAll()
             .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
             .requestMatchers("/**").access(
-                new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1') or hasIpAddress('192.168.0.33')"))
+                new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1') or hasIpAddress('192.168.55.86')"))
             .anyRequest().authenticated()
         )
         .authenticationManager(authenticationManager)
