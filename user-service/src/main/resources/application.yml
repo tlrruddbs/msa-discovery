@@ -1,0 +1,51 @@
+server:
+  port: 0
+
+
+spring:
+  profiles:
+    active: default  # 'dev' 프로파일을 명시적으로 활성화
+  cloud:
+    config:
+      uri: http://127.0.0.1:8888  # Config Server의 URI
+      name: user-service
+  config:
+    import: "optional:configserver:"  # Config Server에서 설정을 가져옴
+  application:
+    name: user-service
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
+#      path: /h2-console
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+greeting:
+  message: Welcome to the simple e-commerce.
+
+#token:
+#  expiration_time: 86400000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, env
+#  secret: youre64rbytewsecretakeydthatdsdlongdenoughdfordhs51211111111111ddyoure64rbytewsecretakeydthatdsdlongdenoughdfordhs5121111111111

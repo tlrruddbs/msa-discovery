@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: user-service
+  cloud:
+    config:
+      uri: http://127.0.0.1:8888
+      name: user-service
+    bus:
+      enabled: true
+#  profiles:
+#    active: dev
+  config:
+    import: "configserver:"  # configserver를 가져오도록 설정
