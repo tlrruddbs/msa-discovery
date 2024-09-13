@@ -2,9 +2,11 @@ package com.example.userservice.service;
 
 import com.example.userservice.client.OrderServiceClient;
 import com.example.userservice.dto.UserDto;
+import com.example.userservice.error.FeignErrorDecoder;
 import com.example.userservice.jpa.UserEntity;
 import com.example.userservice.jpa.UserRepository;
 import com.example.userservice.vo.ResponseOrder;
+import feign.FeignException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +61,13 @@ public class UserServiceImpl implements UserService{
 
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
+//        List<ResponseOrder> ordersList = null;
         /* using a feign client */
+//        try{
+//            ordersList = orderServiceClient.getOrders(userId);
+//        } catch (FeignException ex){
+//            log.error(ex.getMessage());
+//        }
         List<ResponseOrder> ordersList = orderServiceClient.getOrders(userId);
 
 //        List<ResponseOrder> orders = new ArrayList<>();

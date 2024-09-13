@@ -49,3 +49,6 @@ management:
       exposure:
         include: refresh, health, beans, busrefresh, env
 #  secret: youre64rbytewsecretakeydthatdsdlongdenoughdfordhs51211111111111ddyoure64rbytewsecretakeydthatdsdlongdenoughdfordhs5121111111111
+logging:
+  level:
+    com.example.userservice.client: DEBUG
