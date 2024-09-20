@@ -38,6 +38,8 @@ dependencies {
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.32'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
 }
 
 dependencyManagement {
