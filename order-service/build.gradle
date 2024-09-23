@@ -40,6 +40,9 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     runtimeOnly 'mysql:mysql-connector-java:8.0.32'
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
+
+    // https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
+    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '3.2.4'
 }
 
 dependencyManagement {
