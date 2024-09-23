@@ -15,11 +15,11 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 @Configuration
 public class KafkaConsumerConfig {
   @Bean
-  public ConsumerFactory<String, String> consumerFactory(){
+  public ConsumerFactory<String, String> consumerFactory() {
     Map<String, Object> properties = new HashMap<>();
-
     properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
     properties.put(ConsumerConfig.GROUP_ID_CONFIG, "consumerGroupId");
+    properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
     properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
     properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
@@ -27,9 +27,11 @@ public class KafkaConsumerConfig {
   }
 
   @Bean
-  public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory(){
-    ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory = new ConcurrentKafkaListenerContainerFactory<>();
+  public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory
+        = new ConcurrentKafkaListenerContainerFactory<>();
     kafkaListenerContainerFactory.setConsumerFactory(consumerFactory());
+
     return kafkaListenerContainerFactory;
   }
 }
