@@ -45,6 +45,8 @@ public class OrderController {
       @PathVariable("userId") String userId,
       @RequestBody RequestOrder orderDetails) {
 
+    log.info("before add order data");
+
     ModelMapper modelMapper = new ModelMapper();
     modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
@@ -64,16 +66,23 @@ public class OrderController {
 
     ResponseOrder returnValue = modelMapper.map(orderDto, ResponseOrder.class);
 
+    log.info("after add order data");
+
     return ResponseEntity.status(HttpStatus.CREATED).body(returnValue);
 
   }
 
   @GetMapping(value="/{userId}/orders")
   public ResponseEntity<List<ResponseOrder>> getOrder(@PathVariable("userId") String userId){
+
+    log.info("before retrieve  orders microservice");
+
     Iterable<OrderEntity> orderList = orderService.getOrdersByUserId(userId);
 
     List<ResponseOrder> result = new ArrayList<>();
     orderList.forEach(v->result.add(new ModelMapper().map(v, ResponseOrder.class)));
+
+    log.info("add retrieve orders microservice");
 
     return ResponseEntity.status(HttpStatus.OK).body(result);
   }

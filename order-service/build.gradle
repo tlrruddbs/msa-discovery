@@ -43,6 +43,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
     implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '3.2.4'
+
+    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
 }
 
 dependencyManagement {

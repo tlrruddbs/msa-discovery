@@ -1,6 +1,20 @@
 server:
   port: 0
 
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: b3
+      produce: b3_multi
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+  endpoints:
+    web:
+      exposure:
+        include: health, httptrace, info, metrics, prometheus
 
 spring:
   profiles:
@@ -13,6 +27,12 @@ spring:
     import: "optional:configserver:"  # Config Server에서 설정을 가져옴
   application:
     name: user-service
+  zipkin:
+    base-url: http://127.0.0.1:9411
+    enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
 #  h2:
 #    console:
 #      enabled: true
@@ -43,12 +63,13 @@ greeting:
 
 #token:
 #  expiration_time: 86400000
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh, health, beans, busrefresh, env
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: refresh, health, beans, busrefresh, env
 #  secret: youre64rbytewsecretakeydthatdsdlongdenoughdfordhs51211111111111ddyoure64rbytewsecretakeydthatdsdlongdenoughdfordhs5121111111111
+
 logging:
-  level:
-    com.example.userservice.client: DEBUG
+  pattern:
+    correlation: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
