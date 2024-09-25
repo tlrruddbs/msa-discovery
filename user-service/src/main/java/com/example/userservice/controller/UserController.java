@@ -6,6 +6,7 @@ import com.example.userservice.service.UserService;
 import com.example.userservice.vo.Greeting;
 import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
+import io.micrometer.core.annotation.Timed;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class UserController {
     private final Environment env;
     private final UserService userService;
     @GetMapping("/health_check")
+    @Timed(value = "users.status", longTask = true)
     public String status(){
         return "It's working in user-service " + env.getProperty("local.server.port")
             + ", server port: "+ env.getProperty("server.port")
@@ -45,6 +47,7 @@ public class UserController {
 //    url: jdbc:h2:mem:testdb
 //    username: sa
     @GetMapping("/welcome")
+    @Timed(value = "users.welcome", longTask = true)
     public String welcome(HttpServletRequest request){
         log.info("Server port={} ",request.getServerPort());
         return String.format("hi there. server port is %s", greeting.getMessage());

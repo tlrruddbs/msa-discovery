@@ -71,6 +71,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-tracing-bridge-brave'
     implementation 'io.github.openfeign:feign-micrometer'
+
+    // https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus
+    implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.12.0'
+
 }
 
 dependencyManagement {
