@@ -1,7 +1,6 @@
 package com.example.gatewayservice.config;
 
 import io.jsonwebtoken.Jwts;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
