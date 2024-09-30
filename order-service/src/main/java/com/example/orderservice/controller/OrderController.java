@@ -2,6 +2,7 @@ package com.example.orderservice.controller;
 
 import com.example.orderservice.dto.OrderDto;
 import com.example.orderservice.entity.OrderEntity;
+import com.example.orderservice.jpa.OrderRepository;
 import com.example.orderservice.messagequeue.KafkaProducer;
 import com.example.orderservice.messagequeue.OrderProducer;
 import com.example.orderservice.service.OrderService;
@@ -34,6 +35,7 @@ public class OrderController {
   private final Environment env;
   private final KafkaProducer kafkaProducer;
   private final OrderProducer orderProducer;
+  private final OrderRepository orderRepository;
 
   @GetMapping("/health_check")
   public String status(){
@@ -45,39 +47,35 @@ public class OrderController {
       @PathVariable("userId") String userId,
       @RequestBody RequestOrder orderDetails) {
 
-    log.info("before add order data");
+    log.info("Before add orders data");
+    ModelMapper mapper = new ModelMapper();
+    mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-    ModelMapper modelMapper = new ModelMapper();
-    modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-    //jpa
-    OrderDto orderDto = modelMapper.map(orderDetails, OrderDto.class);
+    OrderDto orderDto = mapper.map(orderDetails, OrderDto.class);
     orderDto.setUserId(userId);
+    /* jpa */
+    OrderDto createdOrder = orderService.createOrder(orderDto);
+    ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
 
-//    OrderDto createDto = orderService.createOrder(orderDto);
-//    ResponseOrder returnValue = modelMapper.map(createDto, ResponseOrder.class);
-
-    //kafka
+    /* kafka */
     orderDto.setOrderId(UUID.randomUUID().toString());
     orderDto.setTotalPrice(orderDetails.getQty() * orderDetails.getUnitPrice());
 
-    kafkaProducer.send("example-category-topic", orderDto);
-    orderProducer.send("orders", orderDto);
+    /* send this order to the kafka */
+    kafkaProducer.send("example-catalog-topic", orderDto);
 
-    ResponseOrder returnValue = modelMapper.map(orderDto, ResponseOrder.class);
-
-    log.info("after add order data");
-
-    return ResponseEntity.status(HttpStatus.CREATED).body(returnValue);
-
+    log.info("After added orders data");
+    return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
   }
 
   @GetMapping(value="/{userId}/orders")
   public ResponseEntity<List<ResponseOrder>> getOrder(@PathVariable("userId") String userId){
 
-    log.info("before retrieve  orders microservice");
+    log.info("before retrieve  orders microservice, userId: "+userId);
 
     Iterable<OrderEntity> orderList = orderService.getOrdersByUserId(userId);
+
+    log.info("orderList: "+orderList.toString());
 
     List<ResponseOrder> result = new ArrayList<>();
     orderList.forEach(v->result.add(new ModelMapper().map(v, ResponseOrder.class)));
