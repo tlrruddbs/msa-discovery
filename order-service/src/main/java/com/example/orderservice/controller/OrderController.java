@@ -8,7 +8,6 @@ import com.example.orderservice.messagequeue.OrderProducer;
 import com.example.orderservice.service.OrderService;
 import com.example.orderservice.vo.RequestOrder;
 import com.example.orderservice.vo.ResponseOrder;
-import java.net.Authenticator.RequestorType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

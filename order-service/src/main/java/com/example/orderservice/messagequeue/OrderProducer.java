@@ -6,7 +6,6 @@ import com.example.orderservice.dto.OrderDto;
 import com.example.orderservice.dto.Payload;
 import com.example.orderservice.dto.Schema;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
