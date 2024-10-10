@@ -8,9 +8,9 @@ management:
     propagation:
       consume: b3
       produce: b3_multi
-  zipkin:
-    tracing:
-      endpoint: "http://localhost:9411/api/v2/spans"
+#  zipkin:
+#    tracing:
+#      endpoint: "http://localhost:9411/api/v2/spans"
   endpoints:
     web:
       exposure:
@@ -27,9 +27,9 @@ spring:
     import: "optional:configserver:"  # Config Server에서 설정을 가져옴
   application:
     name: user-service
-  zipkin:
-    base-url: http://127.0.0.1:9411
-    enabled: true
+#  zipkin:
+#    base-url: http://127.0.0.1:9411
+#    enabled: true
   sleuth:
     sampler:
       probability: 1.0
