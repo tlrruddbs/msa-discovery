@@ -13,5 +13,4 @@ public class ResponseUser {
     private String userId;
 
     private List<ResponseOrder> orders;
-
 }
